@@ -25,8 +25,8 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector3 m = new Vector3(move.x, 0, move.y) * Speed * Time.deltaTime;
-        Vector3 cameraAngles = Camera.rotation.eulerAngles;        
+        Vector3 m = new Vector3(move.x, 0, move.y) * Speed * Time.deltaTime; // anaglog stick input
+        Vector3 cameraAngles = Camera.rotation.eulerAngles; // angle camera is pointed at now        
         Quaternion rotation = Quaternion.Euler(0,cameraAngles.y,cameraAngles.z);
         Vector3 direction = rotation * m;
         Quaternion playerRotation = Quaternion.Euler(0,cameraAngles.y, 0);
@@ -47,15 +47,15 @@ public class PlayerController : MonoBehaviour
 
         // rotation should be a quaterion - original y angle changed to new y angle
         float angleY = rotation.eulerAngles.y;
-        Quaternion newPlayerRotation = Quaternion.Euler(playerAngles.x, angleY, playerAngles.z); 
+        Quaternion newPlayerRotation = Quaternion.Euler(playerAngles.x, cameraAngles.y, playerAngles.z); 
         // print(rotation.eulerAngles.y);
 
         // Quaternion YRot = Quaternion.AngleAxis(angleY, Vector3.up);
         // transform.Rotate(newPlayerRotation.eulerAngles, Space.Self);
+        transform.Translate(direction, Space.World);
         transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(direction), 300 * Time.deltaTime);
 
 
-        transform.Translate(direction, Space.Self);
     }
 
     void OnEnable() {
