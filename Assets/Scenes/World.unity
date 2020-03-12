@@ -6464,7 +6464,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2073058089}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 4.42, z: 2.4272}
+  m_LocalPosition: {x: 0, y: 1.55, z: 2.4272}
   m_LocalScale: {x: 2.15, y: 3, z: 1.875}
   m_Children:
   - {fileID: 139759519}
@@ -6486,6 +6486,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotate: {x: 0, y: 0}
+  jumpingVelocity: 10
+  movingVelocity: 0
+  Speed: 1000
   Camera: {fileID: 963194228}
 --- !u!54 &2073058095
 Rigidbody:
@@ -6495,13 +6498,13 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2073058089}
   serializedVersion: 2
-  m_Mass: 1
+  m_Mass: 0.0000001
   m_Drag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 80
   m_CollisionDetection: 0
 --- !u!1001 &2117773725
 PrefabInstance:
