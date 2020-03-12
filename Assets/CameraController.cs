@@ -23,7 +23,7 @@ public class CameraController : MonoBehaviour
     void ControlCam(){
         mouseX += Player.rotate.x * RotationSpeed;
         Target.rotation = Quaternion.Euler(0, mouseX, 0);
-        Player.transform.rotation = Quaternion.Euler(0, mouseX, 0);
+        // Player.transform.rotation = Quaternion.Euler(0, mouseX, 0);
 
         transform.LookAt(Target);
     }

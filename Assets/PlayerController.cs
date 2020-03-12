@@ -8,7 +8,8 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     Vector2 move;
     public Vector2 rotate;
-    float Speed;
+    float Speed = 30;
+    public Transform Camera;
     void Awake()
     {
         controls = new PlayerInputActions();
@@ -24,17 +25,37 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (move.x > 0 && move.x < 0.5) {
-            Speed = 5;
-        }
-        if (move.x >= 0.5) {
-            Speed = 10;
-        }
-        // print("move.x: " + move.x);
-        // print("move.y: " + move.y);
-
         Vector3 m = new Vector3(move.x, 0, move.y) * Speed * Time.deltaTime;
-        transform.Translate(m, Space.Self); // relative to world space;
+        Vector3 cameraAngles = Camera.rotation.eulerAngles;        
+        Quaternion rotation = Quaternion.Euler(0,cameraAngles.y,cameraAngles.z);
+        Vector3 direction = rotation * m;
+        Quaternion playerRotation = Quaternion.Euler(0,cameraAngles.y, 0);
+
+        // Quaternion playerRotation = Quaternion.Euler(0, cameraAngles.y, 0);
+        // float targetDir = direction - transform.position;
+        // float difference = Vector3.Angle(targetDir, cameraAngles.y);
+
+        // Where is it before the move?
+        print(transform.position);
+        // Where is it after the move?
+        // What angle is it moving at compared to camera angle
+
+        // Compare that to direction player is facing now
+
+        Vector3 playerAngles = transform.rotation.eulerAngles;
+        // print("transform.rotation: " + ); // current y
+
+        // rotation should be a quaterion - original y angle changed to new y angle
+        float angleY = rotation.eulerAngles.y;
+        Quaternion newPlayerRotation = Quaternion.Euler(playerAngles.x, angleY, playerAngles.z); 
+        // print(rotation.eulerAngles.y);
+
+        // Quaternion YRot = Quaternion.AngleAxis(angleY, Vector3.up);
+        // transform.Rotate(newPlayerRotation.eulerAngles, Space.Self);
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(direction), 300 * Time.deltaTime);
+
+
+        transform.Translate(direction, Space.Self);
     }
 
     void OnEnable() {
